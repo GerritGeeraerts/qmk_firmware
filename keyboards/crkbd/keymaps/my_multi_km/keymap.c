@@ -18,7 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+#define ALT_ESC ALT_T(KC_ESC)
+#define CTL_ESC CTL_T(KC_ESC)
+#define GUI_ESC GUI_T(KC_ESC)
+#define HYPER LGUI(LSFT(KC_LALT))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  // 0 - Colemak
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y, XXXXXXX, KC_BSPC,
@@ -27,62 +33,79 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, XXXXXXX, KC_LALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, FN_MO13, XXXXXXX,     KC_SPC, FN_MO23, XXXXXXX
+                                            MO(3), ALT_ESC, KC_LGUI,     KC_SPC,   MO(2),   HYPER
                                       //`--------------------------'  `--------------------------'
-
   ),
 
+  // 1 - Qwerty
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,                        KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,  KC_DEL,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,   KC_AT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, KC_ENT,
+      ALT_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, XXXXXXX,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, KC_QUES, KC_EXLM, XXXXXXX, KC_LALT,
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, XXXXXXX, KC_LALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, _______, XXXXXXX,     KC_SPC, _______, XXXXXXX
+                                            MO(4), GUI_ESC, KC_LCTL,     KC_SPC,   MO(2),   HYPER
                                       //`--------------------------'  `--------------------------'
   ),
 
+
+  // 2 - Symbols
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,   KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,                        KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,  KC_DEL,
+      _______, KC_BSLS, KC_SLSH, KC_LBRC, KC_RBRC, KC_TILD,                      KC_PIPE,  KC_EQL, KC_PLUS, KC_MINS, KC_UNDS, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_ENT,
+      _______, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN,  KC_GRV,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT,
+      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, _______, XXXXXXX,     KC_SPC, _______, XXXXXXX
+                                            MO(5), _______, _______,    _______, KC_TRNS, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
+  // 3 - MAN Mac
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_DEL,
+      _______, _______, KC_BRMD, KC_VOLU, KC_BRMU, _______,                      _______,    KC_7,    KC_8,    KC_9, KC_ASTR, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
+      _______, KC_MUTE, KC_MRWD, KC_MPLY, KC_MFFD, _______,                      _______,    KC_4,    KC_5,    KC_6, KC_PLUS, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT,
+      _______, _______, _______, KC_VOLD, _______, _______,                      _______,    KC_1,    KC_2,    KC_3, KC_BSLS, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, _______, XXXXXXX,     KC_SPC, _______, XXXXXXX
+                                          KC_TRNS, _______, _______,       KC_0,   MO(5), _______
                                       //`--------------------------'  `--------------------------'
   ),
 
+  // 4 - MAN Linux
   [4] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_DEL,
+      _______, _______, KC_BRID, KC_VOLU, KC_BRIU, _______,                      _______,    KC_7,    KC_8,    KC_9, KC_ASTR, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,    KC_A, XXXXXXX,                      XXXXXXX,    KC_A, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
+      _______, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, _______,                      _______,    KC_4,    KC_5,    KC_6, KC_PLUS, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT,
+      _______, _______, _______, KC_VOLD, _______, _______,                      _______,    KC_1,    KC_2,    KC_3, KC_BSLS, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, _______, XXXXXXX,     KC_SPC, _______, XXXXXXX
+                                          KC_TRNS, _______, _______,       KC_0,   MO(5), _______
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  // 5 - Extra
+  [5] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______,   DF(0), _______, _______,   DF(1), _______,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______, _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_TRNS, _______, _______,    _______, KC_TRNS, _______
                                       //`--------------------------'  `--------------------------'
   )
 };
 
 #ifdef OLED_ENABLE
-#include <stdio.h>
+#    include <stdio.h>
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
@@ -91,29 +114,40 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
-#define L_ADJUST 8
+#define L_BASE_MAC 0
+#define L_BASE_LINUX 2
+#define L_SYMBOLS 4
+#define L_MAN_MAC 8
+#define L_MAN_LINUX 16
+#define L_EXTRA 32
 
 void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("L: "), false);
+
     switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
+        case L_BASE_MAC:
+        case L_BASE_LINUX:
+            oled_write_ln_P(PSTR("Base"), false);
             break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
+        case L_SYMBOLS:
+            oled_write_ln_P(PSTR("Symbols"), false);
             break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
+        case L_MAN_MAC:
+            oled_write_ln_P(PSTR("Media/Num (Mac)"), false);
             break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
+        case L_MAN_LINUX:
+            oled_write_ln_P(PSTR("Media/Num (Linux)"), false);
+            break;
+        case L_EXTRA:
+        case L_EXTRA|L_SYMBOLS:
+        case L_EXTRA|L_MAN_MAC:
+        case L_EXTRA|L_MAN_LINUX:
+        case L_EXTRA|L_SYMBOLS|L_MAN_MAC:
+        case L_EXTRA|L_SYMBOLS|L_MAN_LINUX:
+            oled_write_ln_P(PSTR("Extra"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Unhandled!"), false);
             break;
     }
 }
